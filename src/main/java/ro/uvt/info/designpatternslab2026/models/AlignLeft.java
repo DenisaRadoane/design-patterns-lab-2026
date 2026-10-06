@@ -1,0 +1,8 @@
+package ro.uvt.info.designpatternslab2026.models;
+
+public class AlignLeft implements AlignStrategy {
+    @Override
+    public void render(String paragraph) {
+        System.out.println(paragraph);
+    }
+}
