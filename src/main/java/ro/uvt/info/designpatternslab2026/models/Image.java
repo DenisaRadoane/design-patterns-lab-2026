@@ -1,10 +1,17 @@
 package ro.uvt.info.designpatternslab2026.models;
 
+import java.util.concurrent.TimeUnit;
+
 public class Image implements Element {
     private String imageName;
 
-    public Image(String imageName) {
-        this.imageName = imageName;
+    public Image(String name) {
+        this.imageName = name;
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -13,10 +20,10 @@ public class Image implements Element {
     }
 
     @Override
-    public void add(Element element) {}
+    public void add(Element element) { }
 
     @Override
-    public void remove(Element element) {}
+    public void remove(Element element) { }
 
     @Override
     public Element get(int index) {
