@@ -20,14 +20,17 @@ public class Book {
         this.content.add(element);
     }
 
-    public void print() {
-        System.out.println("Book: " + title);
-        System.out.println("Authors:");
-        for (Author author : authors) {
-            author.print();
-        }
+    public void render() {
+        System.out.println(title);
+    }
+
+
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
         for (Element element : content) {
-            element.print();
+            element.accept(visitor);
         }
     }
+
+
 }

@@ -7,9 +7,8 @@ public class Table implements Element {
         this.title = title;
     }
 
-    @Override
-    public void print() {
-        System.out.println("Table with title: " + title);
+    public void render() {
+        System.out.println("Table: " + title);
     }
 
     @Override
@@ -21,5 +20,10 @@ public class Table implements Element {
     @Override
     public Element get(int index) {
         return null;
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 }

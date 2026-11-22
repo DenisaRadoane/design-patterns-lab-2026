@@ -26,11 +26,20 @@ public class Section implements Element {
         return children.get(index);
     }
 
-    @Override
-    public void print() {
+    public void render() {
         System.out.println(title);
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
         for (Element element : children) {
-            element.print();
+            element.accept(visitor);
         }
     }
+
+    public String getTitle() {
+        return title;
+    }
+
 }
