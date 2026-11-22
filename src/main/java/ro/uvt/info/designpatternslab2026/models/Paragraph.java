@@ -12,15 +12,13 @@ public class Paragraph implements Element {
         this.textAlignment = strategy;
     }
 
-    @Override
-    public void print() {
+    public void render() {
         if (textAlignment != null) {
             textAlignment.render(text);
         } else {
             System.out.println(text);
         }
     }
-
     @Override
     public void add(Element element) { }
 
@@ -31,4 +29,10 @@ public class Paragraph implements Element {
     public Element get(int index) {
         return null;
     }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
 }
