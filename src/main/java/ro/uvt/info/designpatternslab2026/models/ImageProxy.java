@@ -1,7 +1,22 @@
 package ro.uvt.info.designpatternslab2026.models;
 
-public class ImageProxy implements Element {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Transient;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor(force = true)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class ImageProxy extends BaseElement {
+
     private String url;
+
+    @Transient
     private Image realImage;
 
     public ImageProxy(String url) {
@@ -15,6 +30,7 @@ public class ImageProxy implements Element {
         }
         return realImage;
     }
+
 
     public void render() {
         loadImage().render();

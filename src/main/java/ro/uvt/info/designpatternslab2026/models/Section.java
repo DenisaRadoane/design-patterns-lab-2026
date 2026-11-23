@@ -3,8 +3,21 @@ package ro.uvt.info.designpatternslab2026.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Section implements Element {
+import jakarta.persistence.Entity;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.OneToMany;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor(force = true)
+
+public class Section extends BaseElement {
     protected String title;
+    @OneToMany(targetEntity = BaseElement.class, cascade = CascadeType.ALL)
     protected List<Element> children = new ArrayList<>();
 
     public Section(String title) {

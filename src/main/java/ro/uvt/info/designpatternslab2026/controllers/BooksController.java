@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.uvt.info.designpatternslab2026.commands.*;
+import ro.uvt.info.designpatternslab2026.models.Book;
 import ro.uvt.info.designpatternslab2026.services.BooksService;
 
 import java.util.List;
@@ -20,13 +21,13 @@ public class BooksController {
     private final AsyncCommandExecutor asyncExecutor;
 
     @GetMapping
-    public ResponseEntity<List<Map<String, Object>>> getAllBooks() {
+    public ResponseEntity<List<Book>> getAllBooks() {
         return ResponseEntity.ok(syncExecutor.execute(new GetAllBooksCommand(booksService)));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> getBookById(@PathVariable Long id) {
-        Map<String, Object> book = syncExecutor.execute(new GetBookByIdCommand(booksService, id));
+    public ResponseEntity<Book> getBookById(@PathVariable Integer id) {
+        Book book = syncExecutor.execute(new GetBookByIdCommand(booksService, id));
         if (book == null) {
             return ResponseEntity.notFound().build();
         }
@@ -34,7 +35,7 @@ public class BooksController {
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createBook(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<Map<String, String>> createBook(@RequestBody Book body) {
         String requestId = asyncExecutor.submit(new CreateBookCommand(booksService, body));
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(Map.of(
                 "requestId", requestId,
@@ -52,8 +53,8 @@ public class BooksController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> updateBook(@PathVariable Long id, @RequestBody Map<String, Object> body) {
-        Map<String, Object> updated = syncExecutor.execute(new UpdateBookCommand(booksService, id, body));
+    public ResponseEntity<Book> updateBook(@PathVariable Integer id, @RequestBody Book body) {
+        Book updated = syncExecutor.execute(new UpdateBookCommand(booksService, id, body));
         if (updated == null) {
             return ResponseEntity.notFound().build();
         }
@@ -61,7 +62,7 @@ public class BooksController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteBook(@PathVariable Integer id) {
         if (!syncExecutor.execute(new DeleteBookCommand(booksService, id))) {
             return ResponseEntity.notFound().build();
         }

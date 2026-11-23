@@ -1,11 +1,11 @@
 package ro.uvt.info.designpatternslab2026.commands;
 
+import ro.uvt.info.designpatternslab2026.models.Book;
 import ro.uvt.info.designpatternslab2026.services.BooksService;
 
 import java.util.List;
-import java.util.Map;
 
-public class GetAllBooksCommand implements Command<List<Map<String, Object>>> {
+public class GetAllBooksCommand implements Command<List<Book>> {
     private final BooksService booksService;
 
     public GetAllBooksCommand(BooksService booksService) {
@@ -13,7 +13,7 @@ public class GetAllBooksCommand implements Command<List<Map<String, Object>>> {
     }
 
     @Override
-    public List<Map<String, Object>> execute() {
+    public List<Book> execute() {
         return booksService.findAll();
     }
 }

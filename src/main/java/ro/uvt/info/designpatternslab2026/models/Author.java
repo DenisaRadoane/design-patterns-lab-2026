@@ -1,6 +1,22 @@
 package ro.uvt.info.designpatternslab2026.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor(force = true)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Author {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String name;
     private String surname;
 
