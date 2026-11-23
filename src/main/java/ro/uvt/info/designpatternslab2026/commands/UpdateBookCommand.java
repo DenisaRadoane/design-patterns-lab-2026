@@ -1,22 +1,21 @@
 package ro.uvt.info.designpatternslab2026.commands;
 
+import ro.uvt.info.designpatternslab2026.models.Book;
 import ro.uvt.info.designpatternslab2026.services.BooksService;
 
-import java.util.Map;
-
-public class UpdateBookCommand implements Command<Map<String, Object>> {
+public class UpdateBookCommand implements Command<Book> {
     private final BooksService booksService;
-    private final Long id;
-    private final Map<String, Object> data;
+    private final Integer id;
+    private final Book book;
 
-    public UpdateBookCommand(BooksService booksService, Long id, Map<String, Object> data) {
+    public UpdateBookCommand(BooksService booksService, Integer id, Book book) {
         this.booksService = booksService;
         this.id = id;
-        this.data = data;
+        this.book = book;
     }
 
     @Override
-    public Map<String, Object> execute() {
-        return booksService.update(id, data);
+    public Book execute() {
+        return booksService.update(id, book);
     }
 }

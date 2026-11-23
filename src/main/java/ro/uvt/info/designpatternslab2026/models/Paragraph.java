@@ -1,12 +1,24 @@
 package ro.uvt.info.designpatternslab2026.models;
 
-public class Paragraph implements Element {
+import jakarta.persistence.Entity;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import jakarta.persistence.Transient;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor(force = true)
+public class Paragraph extends BaseElement {
     private String text;
+    @Transient
     private AlignStrategy textAlignment;
 
     public Paragraph(String text) {
         this.text = text;
     }
+
 
     public void setAlignStrategy(AlignStrategy strategy) {
         this.textAlignment = strategy;

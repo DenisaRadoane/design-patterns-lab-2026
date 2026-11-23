@@ -1,6 +1,17 @@
 package ro.uvt.info.designpatternslab2026.models;
 
-public class Table implements Element {
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@jakarta.persistence.Table(name = "doc_table")
+@Getter
+@Setter
+@NoArgsConstructor(force = true)
+
+public class Table extends BaseElement {
     private String title;
 
     public Table(String title) {

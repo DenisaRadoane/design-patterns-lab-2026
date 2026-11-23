@@ -1,20 +1,19 @@
 package ro.uvt.info.designpatternslab2026.commands;
 
+import ro.uvt.info.designpatternslab2026.models.Book;
 import ro.uvt.info.designpatternslab2026.services.BooksService;
 
-import java.util.Map;
-
-public class GetBookByIdCommand implements Command<Map<String, Object>> {
+public class GetBookByIdCommand implements Command<Book> {
     private final BooksService booksService;
-    private final Long id;
+    private final Integer id;
 
-    public GetBookByIdCommand(BooksService booksService, Long id) {
+    public GetBookByIdCommand(BooksService booksService, Integer id) {
         this.booksService = booksService;
         this.id = id;
     }
 
     @Override
-    public Map<String, Object> execute() {
+    public Book execute() {
         return booksService.findById(id);
     }
 }

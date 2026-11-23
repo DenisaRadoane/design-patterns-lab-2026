@@ -6,9 +6,26 @@ import org.springframework.context.ApplicationContext;
 import ro.uvt.info.designpatternslab2026.difexamples.ClientComponent;
 import ro.uvt.info.designpatternslab2026.difexamples.SingletonComponent;
 import ro.uvt.info.designpatternslab2026.difexamples.TransientComponent;
+import org.springframework.context.annotation.Bean;
+
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+
 
 @SpringBootApplication
 public class MySpringApplication {
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**");
+            }
+        };
+    }
 
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(MySpringApplication.class, args);
@@ -31,4 +48,6 @@ public class MySpringApplication {
         c = (ClientComponent) context.getBean("clientComponent");
         c.operation();
     }
+
+
 }
