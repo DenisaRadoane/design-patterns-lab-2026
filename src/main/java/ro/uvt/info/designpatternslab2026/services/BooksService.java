@@ -1,6 +1,7 @@
 package ro.uvt.info.designpatternslab2026.services;
 
 import org.springframework.stereotype.Service;
+import ro.uvt.info.designpatternslab2026.Observer.AllBooksSubject;
 import ro.uvt.info.designpatternslab2026.models.Book;
 import ro.uvt.info.designpatternslab2026.persistence.CrudRepository;
 
@@ -10,9 +11,12 @@ import java.util.List;
 public class BooksService {
 
     private final CrudRepository<Book, Integer> booksRepository;
+    private final AllBooksSubject allBooksSubject;
 
-    public BooksService(CrudRepository<Book, Integer> booksRepository) {
+    public BooksService(CrudRepository<Book, Integer> booksRepository,
+                        AllBooksSubject allBooksSubject) {
         this.booksRepository = booksRepository;
+        this.allBooksSubject = allBooksSubject;
     }
 
     public List<Book> findAll() {
@@ -29,7 +33,9 @@ public class BooksService {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        return booksRepository.save(book);
+        Book saved = booksRepository.save(book);
+        allBooksSubject.add(saved);
+        return saved;
     }
 
     public Book update(Integer id, Book data) {
